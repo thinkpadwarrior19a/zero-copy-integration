@@ -123,13 +123,12 @@ IBM's contribution to the Zero-Copy ecosystem is to provide the enterprise-grade
 
 The following table illustrates how IBM's strategic product portfolio aligns with the open-source foundations across each integration plane.
 
-  -----------------------------------------------------------------------   **Layer**         **IBM Strategic Platform**     **Open Source / Open                                                    Technology Foundation**   ----------------- ------------------------------ --------------------------   **Data Plane**    watsonx.data, Cloud Pak        Trino, Apache Iceberg,                     for Data, Data                 Apache Arrow, Delta Lake                     Virtualization Manager
-
-  **Event Plane**   IBM Event Streams, IBM MQ      Apache Kafka, Debezium,                                                    Apache Flink, Strimzi
-
-  **Control Plane** IBM Knowledge Catalog, IBM     Open Policy Agent (OPA),                     Guardium, IBM API Connect,     OpenLineage, Kyverno,                     IBM DataPower Gateway          Apache Atlas
-
-  **Compute Plane** Red Hat OpenShift, IBM         Kubernetes, Knative,                     Cloud Satellite                Istio, Envoy   -----------------------------------------------------------------------
+| **Layer** | **IBM Strategic Platform** | **Open Source / Open Technology Foundation** |
+|---|---|---|
+| **Data Plane** | watsonx.data, Cloud Pak for Data, Data Virtualization Manager | Trino, Apache Iceberg, Apache Arrow, Delta Lake |
+| **Event Plane** | IBM Event Streams, IBM MQ | Apache Kafka, Debezium, Apache Flink, Strimzi |
+| **Control Plane** | IBM Knowledge Catalog, IBM Guardium, IBM API Connect, IBM DataPower Gateway | Open Policy Agent (OPA), OpenLineage, Kyverno, Apache Atlas |
+| **Compute Plane** | Red Hat OpenShift, IBM Cloud Satellite | Kubernetes, Knative, Istio, Envoy |
 
 This alignment is not incidental. The open-source technologies in the table above have been adopted as the foundations of the Zero-Copy architecture precisely because they are open: governed by community processes that prevent proprietary capture, portable across cloud and on-premises environments, and interoperable with the broadest possible range of data platforms and integration tools. The IBM platforms that sit above them add value through governance integration, operational management, and enterprise support without compromising the openness of the foundations on which they build.
 
