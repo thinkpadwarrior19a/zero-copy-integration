@@ -1,3 +1,8 @@
+---
+title: "5. The Zero-Copy Data Layer"
+nav_order: 5
+---
+
 # Chapter 5 --- The Zero-Copy Data Layer
 
 *In-Place Analytics, Federated Access, and the Architecture of Data Without Movement*

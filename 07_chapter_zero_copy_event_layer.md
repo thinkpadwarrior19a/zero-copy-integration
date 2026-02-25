@@ -1,3 +1,8 @@
+---
+title: "7. The Zero-Copy Event Layer"
+nav_order: 7
+---
+
 # Chapter 7 --- The Zero-Copy Event Layer
 
 *Event Sourcing, Event Streaming, and the Replacement of Replication as the Enterprise Integration Backbone*

@@ -1,3 +1,8 @@
+---
+title: "8. Security-by-Design"
+nav_order: 8
+---
+
 # Chapter 8 --- Security-by-Design for Zero-Copy Architectures
 
 *Attack Surface, Policy Enforcement, Confidential Computing, and the Security Posture of the Data-Minimised Enterprise*

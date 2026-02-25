@@ -1,3 +1,8 @@
+---
+title: "Home"
+nav_order: 0
+---
+
 # Zero-Copy Integration: Architecture for the Fragmented Enterprise
 
 A practical guide to building modern enterprise architectures that eliminate unnecessary data movement — reducing cost, improving sovereignty, and enabling resilient multi-cloud integration.

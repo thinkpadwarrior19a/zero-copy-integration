@@ -1,3 +1,8 @@
+---
+title: "9. Integration Fabrics"
+nav_order: 9
+---
+
 # Chapter 9 --- Integration Fabrics: The New Digital Backbone
 
 ![The Integration Fabric: Topology and Governance Layers](media/image13.png){width="6.47230971128609in" height="5.687576552930883in"}

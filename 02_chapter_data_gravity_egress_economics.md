@@ -1,3 +1,8 @@
+---
+title: "2. Data Gravity & Egress Economics"
+nav_order: 2
+---
+
 # Chapter 2 --- Data Gravity, Egress Economics, and the Sovereign Cost Trap
 
 The promise of the early cloud era was deceptively simple: centralise your data, and agility will follow. A single cloud region, a single data lake, a single analytical platform --- the economy of scale and the simplicity of management would make the enterprise more responsive, more analytical, and more competitive. This promise was not entirely false. For enterprises in the first decade of cloud adoption, the movement of data to a centralised cloud platform did deliver genuine benefits: access to elastic compute, managed infrastructure, and analytical tooling that would have been economically prohibitive to operate on premises. The architectural model that delivered those benefits was, however, always predicated on conditions that were present in the early cloud era but have since ceased to hold: data volumes that were manageable, regulatory requirements that were accommodating of centralisation, and a competitive landscape between cloud providers that was expected to drive down the costs of data movement over time.

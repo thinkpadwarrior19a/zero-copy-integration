@@ -1,3 +1,8 @@
+---
+title: "10. Network-Aware Topologies"
+nav_order: 10
+---
+
 # Chapter 10 --- Network-Aware, Sovereign-Aware Integration Topologies
 
 *Designing Integration Architectures That Are Conscious of Physics, Policy, and Failure*

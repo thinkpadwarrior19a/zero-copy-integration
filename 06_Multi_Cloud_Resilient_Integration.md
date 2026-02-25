@@ -1,3 +1,8 @@
+---
+title: "6. Multi-Cloud Resilient Integration"
+nav_order: 6
+---
+
 # Chapter 6: Multi-Cloud Resilient Application Integration
 
 ## API-First Architecture, Service Mesh Patterns, and the Zero-Copy Integration Fabric

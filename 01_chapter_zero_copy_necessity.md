@@ -1,3 +1,8 @@
+---
+title: "1. The Zero-Copy Necessity"
+nav_order: 1
+---
+
 # Chapter 1 --- The Zero-Copy Necessity in a Fragmented Digital World
 
 The transition into the mid-2020s has exposed a fundamental flaw in traditional enterprise architecture: the assumption that to make data useful, it must first be moved. For more than two decades, integration has been synonymous with replication, with organisations relying on complex ETL (Extract, Transform, Load) pipelines, API-driven copying, and nightly batch synchronisations to feed their data warehouses and analytics engines. This model worked tolerably well in an era of centralised infrastructure, where data volumes were manageable, cloud providers were few and their pricing predictable, and regulators were content to accept geographic proximity as a proxy for genuine data control. None of those conditions holds today, and the consequent failure of the copy-first model is not a marginal inefficiency to be optimised at the edges. It is a structural incompatibility between a mode of integration conceived for a different world and the multi-cloud, multi-jurisdictional, AI-driven enterprise that has emerged in its place.

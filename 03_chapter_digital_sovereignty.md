@@ -1,3 +1,8 @@
+---
+title: "3. Digital Sovereignty"
+nav_order: 3
+---
+
 # Chapter 3 --- The New Landscape of Digital Sovereignty: Architectural Autonomy in the Fragmented Enterprise
 
 For the better part of two decades, the practical meaning of data sovereignty in enterprise architecture was both modest and stable. It meant, in most contexts, that data of a particular category should reside within a defined geographic territory: that a European bank's customer records should be held in European data centres, that a public-sector agency's citizen data should not be processed on infrastructure operated by foreign corporations, that a healthcare provider's patient records should remain within the jurisdiction that its clinical governance framework specified. Compliance with these requirements was, in the main, a matter of geography and contract: choose the right cloud region, negotiate the right data processing agreement with the infrastructure provider, and the obligation was discharged.

@@ -1,3 +1,8 @@
+---
+title: "4. The Three Integration Planes"
+nav_order: 4
+---
+
 # Chapter 4 --- The Three Integration Planes of the Zero-Copy Enterprise
 
 *Architectural Framework, Design Principles, and the Structural Logic of Governed, In-Place Integration*
