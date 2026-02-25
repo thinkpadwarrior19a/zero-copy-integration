@@ -22,6 +22,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 9. [Integration Fabrics: The New Digital Backbone](09_chapter_integration_fabrics)
 10. [Network-Aware, Sovereign-Aware Integration Topologies](10_chapter_network_aware_topologies)
 11. [Observability, Lineage, and Audit in Zero-Copy Environments](11_chapter_observability_lineage_audit)
+12. [Business Continuity, Disaster Recovery, and Zero-Copy Resilience](12_chapter_business_continuity_disaster_recovery)
 
 ---
 
