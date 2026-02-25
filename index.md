@@ -29,6 +29,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 16. [Architectural Blueprints for the Sovereign, Resilient Enterprise](16_chapter_architectural_blueprints)
 17. [Industry-Specific Sovereignty and Resilience Patterns](17_chapter_industry_specific_patterns)
 18. [Case Studies in Sovereign and Resilient Integration](18_chapter_case_studies)
+19. [AI, Quantum, and Decentralised Compute: The Next Frontier of Sovereignty](19_chapter_ai_analytics)
 
 ---
 
