@@ -27,6 +27,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 14. [Skills, Culture, and Talent for a Sovereign, Resilient Enterprise](14_chapter_skills_culture_talent)
 15. [The Zero-Copy Integration Maturity Model](15_chapter_maturity_model)
 16. [Architectural Blueprints for the Sovereign, Resilient Enterprise](16_chapter_architectural_blueprints)
+17. [Industry-Specific Sovereignty and Resilience Patterns](17_chapter_industry_specific_patterns)
 
 ---
 
