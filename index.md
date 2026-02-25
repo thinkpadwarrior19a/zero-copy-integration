@@ -15,6 +15,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 7. [The Zero-Copy Event Layer](07_chapter_zero_copy_event_layer)
 8. [Security-by-Design for Zero-Copy Architectures](08_chapter_security_by_design)
 9. [Integration Fabrics: The New Digital Backbone](09_chapter_integration_fabrics)
+10. [Network-Aware, Sovereign-Aware Integration Topologies](10_chapter_network_aware_topologies)
 
 ---
 
