@@ -25,6 +25,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 12. [Business Continuity, Disaster Recovery, and Zero-Copy Resilience](12_chapter_business_continuity_disaster_recovery)
 13. [The Sovereign-by-Design Operating Model](13_chapter_sovereign_operating_model)
 14. [Skills, Culture, and Talent for a Sovereign, Resilient Enterprise](14_chapter_skills_culture_talent)
+15. [The Zero-Copy Integration Maturity Model](15_chapter_maturity_model)
 
 ---
 
