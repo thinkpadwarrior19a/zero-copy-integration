@@ -1,4 +1,4 @@
 title: "Zero-Copy Integration: Architecture for the Fragmented Enterprise"
 description: "A practical guide to zero-copy data architecture, digital sovereignty, and multi-cloud integration for the modern enterprise."
-theme: cayman
+theme: jekyll-theme-cayman
 markdown: kramdown
