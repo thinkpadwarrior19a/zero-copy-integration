@@ -1,4 +1,4 @@
 title: "Zero-Copy Integration"
 description: "A practical guide to zero-copy data architecture, digital sovereignty, and multi-cloud integration for the modern enterprise."
-theme: jekyll-theme-modernist
+theme: jekyll-theme-primer
 markdown: kramdown
