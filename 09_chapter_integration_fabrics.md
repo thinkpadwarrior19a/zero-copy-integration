@@ -5,9 +5,9 @@ nav_order: 9
 
 # Chapter 9 --- Integration Fabrics: The New Digital Backbone
 
-![The Integration Fabric: Topology and Governance Layers](media/image13.png){width="6.47230971128609in" height="5.687576552930883in"}
+![The Integration Fabric: Topology and Governance Layers](images/09_1_integration_fabric_topology.png)
 
-The Integration Fabric: Topology and Governance Layers
+*Figure 9.1: The enterprise integration fabric unifying the Data, Event, and Application Integration planes beneath a shared governance layer—providing a single asset catalogue, unified access governance, federated observability, and cost attribution across all three integration disciplines.*
 
 *From Point-to-Point Pipelines to a Unified, Governed Fabric for API, Event, and Data Integration*
 
@@ -63,6 +63,10 @@ The platform's relationship to the Zero-Copy philosophy operates at multiple lev
 
 IBM's ongoing evolution of Cloud Pak for Integration reflects the changing requirements of the enterprise integration landscape. The platform has progressively expanded its support for cloud-native deployment patterns, event-driven integration capabilities, and AI-powered integration automation. IBM's investment in the AI-assisted integration design and anomaly detection capabilities of the platform reflects the recognition that the operational complexity of a large integration fabric — hundreds of APIs, thousands of event topics, dozens of integration flows — exceeds the capacity of manual operational management, and that AI-powered tooling is essential to maintain the operational discipline and governance quality that a fabric of this scale requires. This theme is examined further in Section 9.5.
 
+![IBM Cloud Pak for Integration as Unified Enterprise Integration Fabric](images/09_2_cloud_pak_integration_fabric.png)
+
+*Figure 9.2: IBM Cloud Pak for Integration packaging API Connect, Event Streams, App Connect Enterprise, DataPower Gateway, and IBM MQ within a single OpenShift-native platform—with shared management console, asset catalogue, and unified observability transforming individual integration products into a coherent fabric deployable within each sovereign zone.*
+
 ## 9.4 The Open-Source Integration Ecosystem
 
 An honest account of the enterprise integration landscape must acknowledge that IBM Cloud Pak for Integration does not exist in isolation. It is one implementation of the integration fabric concept within a rich ecosystem of open-source integration tools, many of which are used by enterprises either as alternatives to commercial platforms or as complements to them. Understanding this ecosystem is important for the technology leader both because it informs the strategic choice of integration platform and because the open-source projects that constitute it provide the technical foundations on which commercial platforms — including IBM's — are built.
@@ -94,6 +98,10 @@ IBM Instana, IBM's application performance monitoring platform, provides the AI-
 IBM's integration platform has also introduced AI-assisted integration design capabilities that accelerate the creation of integration flows, the mapping of data schemas, and the selection of appropriate integration patterns for a given requirement. Experienced integration architects can describe a business integration requirement and receive a suggested integration flow that they can review, modify, and deploy rather than constructing from scratch. Less experienced developers can create correct-by-construction integration flows that conform to the enterprise's architectural standards without requiring deep expertise in every integration technology the fabric supports. The quality and governance implications of these AI-generated designs are worth examining with care: a generative system that produces integration designs that do not conform to Zero-Copy principles — that suggest, for example, creating a database replica where a federated query would serve the requirement — would undermine the Zero-Copy discipline rather than reinforce it. IBM's AI-assisted integration capabilities, deployed within the governance context of Cloud Pak for Integration and its associated policy frameworks, are designed to operate within the governance boundaries that the enterprise has established, defaulting to federated access and event-driven patterns rather than replication-based alternatives. This alignment between AI-generated designs and architectural governance principles is not incidental; it is a design requirement that must be explicitly validated before AI-assisted design tools are deployed into a Zero-Copy integration estate.
 
 For the technology leader, the practical implication of AI-assisted integration operations is a significant improvement in the ratio of integration complexity to operational headcount: an integration fabric that would previously have required a large team of specialist operators to manage reliably can, with AI-assisted monitoring and design tooling, be operated by a smaller team with a broader range of responsibilities. This does not diminish the importance of integration expertise; it changes its application, from routine monitoring and incident response to the higher-order activities of architecture governance, fabric evolution, and the continuous improvement of the AI systems themselves. The integration fabric, governed with AI assistance and operated by a smaller but more highly skilled team, becomes a more capable and more economically sustainable strategic asset than the manually operated integration estate it replaces.
+
+![AI-Assisted Integration Operations with IBM Instana](images/09_3_ai_assisted_operations.png)
+
+*Figure 9.3: AI-assisted integration operations using IBM Instana's statistical baseline modelling to detect gradual performance degradation across API, event, and data planes—complemented by AI-generated integration designs that enforce Zero-Copy patterns by defaulting to federated access and event-driven alternatives over replication-based approaches.*
 
 ## 9.6 Blueprint: Designing a Cross-Cloud Integration Fabric
 
@@ -139,6 +147,10 @@ The fabric's federated observability layer provides the digital retail channel t
 
 This worked example illustrates the practical value of the integration fabric model: the digital retail channel team accessed three different integration capabilities — API, event, and federated data — through a single governance process, within a single operational framework, without creating any unnecessary copies of customer, order, or inventory data. The Zero-Copy discipline was enforced not by the discipline of the individual development team but by the architecture of the fabric within which they built their integration.
 
+![Cross-Cloud Integration Fabric Blueprint: Four Structural Elements](images/09_4_cross_cloud_fabric_blueprint.png)
+
+*Figure 9.4: The cross-cloud integration fabric blueprint comprising four structural elements—a distributed execution layer with autonomous zonal Cloud Pak for Integration instances, a shared governance layer distributing OPA policies and Knowledge Catalog standards, a federated observability layer correlating metrics without moving sensitive data, and a shared asset catalogue providing single-request access provisioning across all three integration disciplines.*
+
 ## 9.7 The Integration Fabric and the Data Mesh
 
 No contemporary discussion of enterprise integration architecture is complete without an examination of the data mesh, the organisational and architectural pattern proposed by Zhamak Dehghani that has attracted substantial attention from enterprise architects and technology leaders since its articulation in 2019. The data mesh is directly relevant to the integration fabric discussion because it addresses, from an organisational perspective, the same problem that the Zero-Copy philosophy addresses from a technical perspective: the failure of centralised, copy-centric data management to scale to the complexity of the modern enterprise.
@@ -150,6 +162,10 @@ The alignment between the data mesh principles and the Zero-Copy Integration phi
 The integration fabric is, in effect, the technical implementation of the data mesh's self-serve data platform principle: it provides the infrastructure through which domains can publish their data products — as APIs, event topics, and federated data sources — and through which consuming domains can discover and access those products without requiring direct coordination with the producing domain or the creation of centralised data copies. Adopting the integration fabric as described in this chapter and adopting the data mesh as an organisational operating model are therefore complementary rather than alternative strategies: the integration fabric provides the technology that makes the data mesh operationally feasible at enterprise scale. A data mesh without a capable integration fabric is an organisational model that cannot be implemented without recreating the point-to-point integration complexity and replication patterns that the mesh aspires to replace.
 
 For the technology leader who is considering both the Zero-Copy Integration architecture and the data mesh operating model, the practical guidance is to treat the integration fabric as the technical foundation and the data mesh as the organisational model that governs how the fabric is used. The data mesh provides the domain ownership model that determines who publishes each integration asset to the fabric catalogue; the Zero-Copy philosophy provides the technical discipline that determines how data is made accessible through the fabric without replication; and the integration fabric provides the platform that enables both. These three frameworks are not competitors for the enterprise's architectural attention; they are mutually reinforcing expressions of the same underlying insight about how complex organisations should manage data and integration in the multi-cloud era.
+
+![Integration Fabric as Technical Implementation of Data Mesh Principles](images/09_5_fabric_data_mesh.png)
+
+*Figure 9.5: The four data mesh principles—domain ownership, data as a product, self-serve platform, and federated computational governance—mapped directly to integration fabric capabilities, showing how the fabric provides the technical foundation that makes data mesh operationally feasible at enterprise scale without recreating point-to-point integration complexity.*
 
 ## 9.8 The Integration Fabric in the Enterprise Zero-Copy Architecture
 
