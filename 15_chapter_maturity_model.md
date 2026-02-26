@@ -7,9 +7,9 @@ nav_order: 15
 
 *From Copy-Heavy Integration to a Fully Sovereign, Resilient Architecture*
 
-![Zero-Copy Integration Maturity Model](media/image19.png){width="6.3700874890638675in" height="1.6810914260717411in"}
+![Zero-Copy Integration Maturity Model four-stage progression from copy-heavy to fully sovereign enterprise](images/15_1_maturity_model_stages.png)
 
-Zero-Copy Integration Maturity Model
+*Figure 15.1: The Zero-Copy Integration Maturity Model — four stages (Copy-Heavy, Distributed but Fragile, Federated and Policy-Driven, Fully Sovereign and Resilient) distinguished by governance framework maturity, operating model coherence, and economic incentive alignment, with key transition investments indicated between each stage.*
 
 Every enterprise that undertakes a significant architectural transformation requires, alongside a vision of the target state, a realistic understanding of its current state and a structured path between the two. The target state described in the preceding chapters of this book — the sovereign-by-design, Zero-Copy enterprise in which data is accessed in place through governed interfaces, integration flows propagate state changes as events rather than bulk data transfers, and the architectural discipline of replication avoidance is sustained by domain ownership, platform governance, and economic incentive alignment — is not a state that any enterprise reaches in a single transformation programme. It is the outcome of a staged maturation process in which each stage builds on the capabilities established in the preceding stage and addresses the limitations and risks that the preceding stage creates.
 
@@ -81,15 +81,19 @@ The specific capabilities that characterise the Stage Three to Stage Four transi
 
 IBM Cloud Satellite provides a critical capability at this transition for the enterprise operating across multiple jurisdictions: the ability to deploy the integration fabric's governance and runtime infrastructure in any location — on-premises data centres, co-location facilities, sovereign cloud environments, partner cloud environments, and edge locations — under the operational management of the central platform team, whilst maintaining the data localisation and jurisdictional boundary enforcement that sovereignty requirements demand. This capability allows the integration fabric to be extended to the locations where sovereign data assets reside, rather than requiring those assets to be moved to where the integration fabric is deployed. Without IBM Cloud Satellite, the Stage Four topology remains aspirational; with it, the sovereign zone deployment model becomes operationally feasible for enterprises whose infrastructure spans the full diversity of modern enterprise deployment scenarios.
 
+![Stage transition investment map showing technical and organisational components of each maturity progression](images/15_2_stage_transition_investments.png)
+
+*Figure 15.2: Zero-Copy Maturity Stage Transition Investment Map — three transitions (Stage 1→2: cataloguing and sovereignty exposure identification; Stage 2→3: unified governance fabric, three-platform model, and Centre of Excellence; Stage 3→4: AI-powered governance, full sovereign zone deployment, and cultural maturity), each showing parallel technical and organisational investment tracks.*
+
 ## 15.4 Stage Four: The Fully Sovereign, Resilient Zero-Copy Enterprise
 
 ### 15.4.1 Characterisation
 
 Stage Four represents the target state described throughout this book: an enterprise in which the Zero-Copy discipline is sustained by the combined effect of technical architecture, organisational structure, governance process, and economic incentive. Data is accessed in place through governed interfaces as the default; replication is the exceptional case, justified by specific operational requirements and explicitly approved through the governance process. The integration fabric is the universal conduit through which all enterprise integration flows pass, providing complete visibility, auditability, and policy enforcement across the full integration estate. The operating model distributes data accountability to domain teams whilst maintaining enterprise-wide policy coherence through the governance framework. The community of practice sustains the cultural disposition that makes Zero-Copy behaviour the natural default, and the economic incentives make it individually rational for domain teams to maintain that disposition even under commercial pressure.
 
-![The Fully Sovereign, Resilient Enterprise: Synthesis Architecture](media/image20.png){width="6.4244520997375325in" height="3.285152012248469in"}
+![Stage Four fully sovereign resilient Zero-Copy enterprise synthesis architecture across all integration planes and sovereign zones](images/15_3_stage_four_synthesis_architecture.png)
 
-The Fully Sovereign, Resilient Enterprise: Synthesis Architecture
+*Figure 15.3: The Fully Sovereign, Resilient Enterprise: Synthesis Architecture — Data Plane (watsonx.data, Iceberg, Knowledge Catalog), Application Integration Plane (API Connect, App Connect, DataPower), Event Plane (Event Streams, MQ, CDC), and Control Plane (Guardium, Instana, ACM, Vault, Terraform), distributed by IBM Cloud Satellite across multiple sovereign zones with jurisdiction-aware routing and BC/DR validated to DORA standards.*
 
 At Stage Four, the resilience characteristics of the architecture are fully realised. The event-driven, stateless integration patterns that the Zero-Copy model favours produce a natural resilience at the architectural level: because consuming services do not maintain copies of the data they consume, the failure of a producing service does not leave consuming services with stale or inconsistent data states; they simply cease to receive events until the producing service recovers, and resume processing from the point of interruption when it does. The jurisdiction-aware routing and regional deployment topology of the integration fabric ensure that regional failures do not propagate across jurisdictional boundaries, maintaining the sovereignty posture of the architecture even under degraded operational conditions. The BC/DR architecture, tested and evidenced to the standards that DORA and comparable operational resilience frameworks require, provides the compliance team with the confident attestation of recovery capability that regulators expect.
 
@@ -113,6 +117,10 @@ The assessment should be conducted by a team that includes both internal enterpr
 
 The output of the assessment should be a maturity profile that distinguishes the current stage across all four dimensions and identifies the specific gaps within each dimension that represent the highest-priority investments for advancing to the next stage. For most enterprises, this profile will be uneven: a Stage Three technical architecture with Stage Two governance, or a Stage Two operating model with Stage One economic incentives. The transformation plan should address the most lagging dimension first, because the maturity of the integration estate is ultimately determined by the weakest of its four dimensions, not the strongest.
 
+![Four-dimensional maturity assessment methodology across technical architecture, governance, operating model, and economic incentives](images/15_4_maturity_assessment_methodology.png)
+
+*Figure 15.4: Zero-Copy Four-Dimensional Maturity Assessment Methodology — four assessment dimensions (Technical Architecture, Governance Framework, Operating Model, Economic Incentives) with diagnostic questions for each, conducted by a team combining internal enterprise architects and IBM Client Engineering practitioners, producing a multi-dimensional maturity profile that identifies the binding constraint dimension.*
+
 ## 15.6 Anti-Patterns to Avoid on the Maturity Journey
 
 The maturity journey from Stage One to Stage Four is not without risks, and the enterprise that is aware of the characteristic failure modes of each transition is better positioned to avoid them. Several anti-patterns recur with sufficient frequency in enterprise integration transformation programmes to warrant careful examination.
@@ -124,6 +132,10 @@ A second anti-pattern is the big-bang governance implementation: the attempt to 
 A third anti-pattern, specific to the sovereignty dimension of the transformation, is the treatment of data localisation controls as a one-time compliance exercise rather than as a sustained operational discipline. Sovereignty requirements evolve as regulations change, as the enterprise expands into new jurisdictions, and as the technology landscape introduces new integration patterns that create new cross-boundary data flow risks. The enterprise that treats sovereignty compliance as a point-in-time assessment — conducting a comprehensive review before a regulatory deadline and then allowing the sovereignty posture to drift until the next deadline — will find that its posture degrades steadily as the architecture evolves, new integration flows are created outside the governed fabric, and the sovereignty topology map in the Knowledge Catalog becomes progressively less accurate. Sovereignty discipline must be embedded in the integration fabric's change management process: every new integration flow, every new data source registration, and every change to an existing integration contract must be assessed against the sovereign topology map as a standard step in the approval workflow, not as a periodic compliance exercise.
 
 A fourth anti-pattern is the technology-first transformation that invests in platform capabilities before establishing the organisational model that will operate them. Enterprises that deploy IBM Cloud Pak for Integration, IBM watsonx.data, and IBM Knowledge Catalog before defining domain boundaries, assigning Data Stewards, establishing the three-platform model, and creating the RACI framework for governance decisions consistently fail to achieve the governance outcomes the platforms are capable of delivering. The platforms are designed to be operated within the sovereign-by-design operating model described in Chapter 13; operated without that model, they become expensive monitoring tools whose governance capabilities are underutilised. The organisational investment and the platform investment must proceed in parallel, with the operating model design informing the platform configuration from the outset.
+
+![Four recurring anti-patterns on the Zero-Copy maturity journey with consequences and mitigations](images/15_5_anti_patterns.png)
+
+*Figure 15.5: Zero-Copy Maturity Journey Anti-Patterns — four failure modes (Premature Stage Two Success Declaration, Big-Bang Governance Implementation, Sovereignty as One-Time Compliance Exercise, Technology-First Transformation), each showing the characteristic consequence and the structural mitigation that prevents the transformation programme from stalling or regressing.*
 
 ## 15.7 Summary and Transformation Imperatives
 
