@@ -11,6 +11,8 @@ A practical guide to building modern enterprise architectures that eliminate unn
 
 ## Table of Contents
 
+[Introduction](00_introduction)
+
 1. [The Zero-Copy Necessity in a Fragmented Digital World](01_chapter_zero_copy_necessity)
 2. [Data Gravity, Egress Economics, and the Sovereign Cost Trap](02_chapter_data_gravity_egress_economics)
 3. [The New Landscape of Digital Sovereignty](03_chapter_digital_sovereignty)
