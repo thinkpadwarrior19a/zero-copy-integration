@@ -57,6 +57,7 @@ A practical guide to building modern enterprise architectures that eliminate unn
 ### Reference
 
 - [IBM Technologies Reference](ibm_technologies)
+- [Open Source Technologies Reference](open_source_technologies)
 
 ---
 
