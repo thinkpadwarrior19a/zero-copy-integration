@@ -31,6 +31,10 @@ The severity of these failure modes is not merely theoretical. Regulatory invest
 
 The architectural alternative to both of these patterns is the API-first integration model, in which applications communicate exclusively through published, versioned interfaces, and in which data is never shared by granting direct access to an application's internal data store. Understanding why this alternative is architecturally superior, and how to implement it at the scale and with the resilience that the enterprise requires, is the central project of this chapter.
 
+![Integration Anti-Patterns vs the API-First Zero-Copy Alternative](images/06_1_api_first_vs_antipatterns.png)
+
+*Figure 6.1: The two dominant integration anti-patterns — shared database and ETL-based synchronisation — compared with the API-first Zero-Copy alternative, in which data remains at its source and consuming applications interact exclusively through published, governed API contracts.*
+
 ---
 
 ## 6.2 API-First, Contract-First Integration: Foundational Principles
@@ -58,6 +62,10 @@ IBM API Connect represents a mature enterprise implementation of these capabilit
 This capability — the ability to place the API enforcement point in the same jurisdiction as the data being exposed — is fundamental to the sovereignty proposition of the Application Integration Layer. If an API gateway is deployed as a centralised cloud service in a particular geographic region, then all API traffic — including traffic that originates in and should remain within a different jurisdiction — must transit through that gateway, potentially creating jurisdictional exposure for data that the API is designed to protect. A sovereign deployment model, in which a gateway instance is deployed within each regulatory jurisdiction and traffic is enforced locally, eliminates this exposure. The API contract is universal; the enforcement is sovereign.
 
 IBM DataPower Gateway extends these capabilities for environments that require hardened, high-performance API enforcement in regulated and sensitive contexts. DataPower has a long heritage in financial services, healthcare, and government deployments, where the combination of high throughput, hardware security module integration, and extensive protocol support — including legacy formats such as SOAP, EDI, and ISO messaging standards that remain prevalent in regulated industries — makes it the preferred enforcement point for API traffic that involves sensitive data or that must meet stringent performance and security requirements. DataPower operates not as a replacement for IBM API Connect's lifecycle management capabilities but as a complementary enforcement layer that provides the hardened gateway infrastructure through which the most sensitive API interactions are mediated. In the context of the Zero-Copy Application Integration Layer, DataPower provides the enforcement infrastructure for those interactions, operating alongside API Connect's broader lifecycle management platform.
+
+![Sovereign API Management Topology: Centralised Governance, Distributed Enforcement](images/06_2_sovereign_api_management_topology.png)
+
+*Figure 6.2: The sovereign API management topology — IBM API Connect's management plane defines API lifecycle and policies centrally, whilst gateway instances deployed within each sovereign zone enforce those policies locally, ensuring that API traffic never transits outside its jurisdictional boundary.*
 
 The open-source ecosystem in this domain is rich and actively maintained. Kong Gateway, operated either as a self-managed deployment or as a cloud service, provides a highly performant API gateway with an extensive plugin ecosystem for authentication, rate limiting, and protocol transformation. Apache APISIX, developed under the Apache Software Foundation, offers a similar capability with particularly strong routing flexibility and a dynamic configuration model that allows policies to be modified at runtime without service interruption. Envoy Proxy, whilst not an API management platform in the full lifecycle sense, is the underlying data plane for many service mesh implementations and provides the foundation for sophisticated traffic management at the API level. These open-source options are relevant both for organisations seeking to complement commercial platforms in specific zones and for hybrid deployments in which an open-source gateway operates within a sovereign zone whilst an enterprise platform manages the API lifecycle and catalogue centrally. The architectural principle — sovereign enforcement, centralised governance — is compatible with either a fully commercial or a hybrid open-source deployment model.
 
@@ -105,6 +113,10 @@ This consistency of policy across deployment topologies is architecturally signi
 
 Beyond security and policy enforcement, the service mesh provides the traffic management capabilities required for resilient inter-service communication within the cluster. Circuit breaking — the automatic detection of failing downstream services and the temporary suspension of calls to those services to prevent cascading failure — is a capability that the service mesh provides at the infrastructure level, without requiring individual services to implement circuit breaker logic in their application code. Similarly, retry policies, timeout configurations, and traffic splitting for canary deployments are managed by the service mesh infrastructure rather than embedded in individual service implementations. These capabilities are directly relevant to the resilience requirements of the Zero-Copy Application Integration Layer: they ensure that the inter-service communication within the integration layer can sustain partial failures without propagating those failures across the system.
 
+![Layered Application Integration Governance: API Gateway and Service Mesh](images/06_3_service_mesh_api_gateway_layers.png)
+
+*Figure 6.3: The two governance layers of the Application Integration Plane — the API gateway enforcing north-south (external) traffic at the cluster boundary, and the service mesh governing east-west (intra-cluster) service-to-service communication — together providing complete, code-free integration governance.*
+
 The intersection of the service mesh with the API management platform defines the complete application integration topology. Traffic from external consumers reaches the API management gateway, which enforces the API contract, applies authentication and authorisation, and routes the request to the appropriate internal service. Within the cluster, the service mesh governs the resulting intra-cluster service-to-service communication, enforcing mutual TLS, applying traffic management policies, and providing the observability data needed to understand how the integration layer is performing. This layered governance — API gateway at the external boundary, service mesh within the internal boundary — provides the complete enforcement infrastructure for a governed, sovereign Application Integration Layer.
 
 ---
@@ -126,6 +138,10 @@ A further pattern relevant to cross-cloud integration is API traffic shadowing, 
 ---
 
 ## 6.8 Architectural Patterns for the Zero-Copy Application Integration Layer
+
+![Multi-Cloud API Federation: Active-Active Topology with Jurisdiction-Aware Routing](images/06_4_multi_cloud_api_federation.png)
+
+*Figure 6.4: Multi-cloud API federation in an active-active configuration — each sovereign zone operates an independent gateway instance, with jurisdiction-aware routing ensuring that requests containing regulated data are directed only to zone instances within the appropriate jurisdictional boundary.*
 
 The preceding discussion of principles, platforms, and cross-cloud communication patterns can be crystallised into three concrete architectural patterns that together address the dominant integration scenarios encountered in the multi-cloud enterprise. Each pattern represents a specific application of the Zero-Copy philosophy to a particular class of integration problem, and each is supported by specific platform capabilities that provide an implementation foundation.
 
@@ -176,6 +192,10 @@ The governance of integration flows encompasses not merely their technical opera
 ---
 
 ## 6.10 The Application Integration Layer in the Enterprise Zero-Copy Architecture
+
+![The Application Integration Layer in the Enterprise Zero-Copy Architecture](images/06_5_application_integration_layer_context.png)
+
+*Figure 6.5: The Application Integration Layer in the full enterprise Zero-Copy architecture — positioned between the Data Layer (federated access to persistent data) and the Event Layer (asynchronous state change propagation), governed by the Control Plane throughout, with no shared databases or ETL copies at any level.*
 
 The components described in this chapter — the API management platform, the service mesh, the integration mediation layer, the composite API patterns, and the observability infrastructure — collectively constitute the Application Integration Layer of the enterprise Zero-Copy architecture. This layer sits above the Data Layer described in Chapter 5 and below the Event Layer that will be examined in Chapter 7, and it interacts with both. The Data Layer provides the governed access to persistent data assets that the Application Integration Layer exposes through its APIs; the Event Layer provides the asynchronous communication substrate that the Application Integration Layer uses for operations where real-time synchronous communication is inappropriate.
 
