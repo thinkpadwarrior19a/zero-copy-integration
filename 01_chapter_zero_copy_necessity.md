@@ -19,13 +19,17 @@ In this context, the ETL pipeline was not a symptom of poor architecture; it was
 
 The misalignment manifests across four interconnected dimensions: the economics of data movement in a multi-cloud environment; the jurisdictional complexity of data sovereignty regulation; the operational fragility of architectures that depend on synchronised replicas; and the security implications of a distributed estate of data copies. Each of these dimensions is examined in the sections that follow. Together, they constitute the case for architectural change.
 
+![Four Structural Forces Driving the Zero-Copy Imperative](images/01_1_four_structural_forces.png)
+
+*Figure 1.1: The four structural forces that make the copy-first integration model untenable in the mid-2020s enterprise.*
+
 ### 1.1.1 The Economics of Data Movement at Scale
 
 The financial costs of the copy-first model have been present since its inception, but they were for many years sufficiently modest to be treated as a cost of doing business rather than a strategic liability. The shift to public cloud infrastructure changed this calculus materially. Cloud providers charge for data that leaves their infrastructure --- egress fees --- and those charges, which appear modest on a per-gigabyte basis, compound rapidly when applied to the volumes of data that modern enterprises move across cloud boundaries to support their analytical and integration workflows.
 
-![The Copy-First Problem: Data Proliferation Under Conventional Integration](media/image2.png){width="5.541666666666667in" height="1.6822911198600174in"}
+![The Copy-First Problem: Data Proliferation Under Conventional Integration](images/01_1_copy_first_data_proliferation.png)
 
-The Copy-First Problem: Data Proliferation Under Conventional Integration
+*Figure 1.2: Data proliferation under the copy-first model — each integration destination receives and retains its own full copy of source data, multiplying storage, governance, and security costs.*
 
 The mechanics of egress cost accumulation are worth understanding in detail, because they are often invisible to the senior leaders who must ultimately address them. Cloud providers typically charge zero for ingress --- data entering their infrastructure --- but apply tiered charges for egress: data leaving their infrastructure, either to the public internet, to another cloud provider, or in some cases to another region within the same provider. These charges typically range from $0.05 to $0.09 per gigabyte for standard internet egress, with some reduction available at volume, and from $0.01 to $0.08 per gigabyte for inter-region transfer within the same provider. Cross-provider transfer is charged at the full egress rate by the sending provider and occasionally also by the receiving provider.
 
@@ -36,6 +40,10 @@ The experience of GlobalBank, a composite drawn from engagements with several ma
 The immediate trigger for architectural review was an egress invoice that reached six figures in a single month, driven by a period of elevated transaction volumes during a market volatility event. But the financial exposure was only one dimension of a problem that had been developing since the analytics platform was first built. The regulatory risk was equally pressing: the cross-border transfer of transaction data containing customer identifiers from EU-regulated systems to North American infrastructure had become the subject of scrutiny by the bank's prudential regulator, which was questioning whether the transfer satisfied the adequacy requirements for personal data transfers under GDPR, and whether the concentration of analytical processing in a single non-European cloud region was consistent with the operational resilience requirements then being introduced under DORA. The architecture that had been economically attractive in 2019 had become both financially costly and regulatorily exposed by 2024.
 
 The zero-copy alternative that GlobalBank's architects developed eliminated the nightly replication pipeline entirely. Instead, fraud analytics workloads were restructured to execute in the European cloud environment, co-located with the transaction data they consumed, using a federated query architecture that enabled the analytics models to access transaction data in place without physical extraction. Only the outputs of the analytics process --- fraud scores, alert indicators, model performance metrics --- were transmitted to the North American environment for operational use by the fraud management function. The volume of outbound data was reduced from the four-to-six terabytes of the nightly replication to a few hundred megabytes of analytical outputs, a reduction of more than 95 per cent in the data crossing the cloud boundary, with a commensurate reduction in egress costs and a material improvement in the regulatory defensibility of the architecture.
+
+![GlobalBank Zero-Copy Transformation: Before and After](images/01_1_globalbank_transformation.png)
+
+*Figure 1.3: GlobalBank's architectural transformation — from a nightly 4–6 TB cross-border replication pipeline to a federated analytics model that moves only analytical outputs (≈200 MB) across the cloud boundary, achieving a 95% reduction in data egress.*
 
 The HealthChain case offers a parallel illustration from the healthcare sector. HealthChain, a national healthcare network operating across multiple clinical environments, had attempted to implement a unified clinical research platform by synchronising Electronic Medical Records (EMR) data from its clinical systems to a research cloud environment. The rationale was sound: researchers needed access to a representative dataset spanning the full patient population, and centralisation appeared to be the most straightforward route to providing it. In practice, the architecture encountered two insurmountable problems simultaneously. The first was financial: medical imaging data, which formed a substantial component of the clinical records, is extremely large in volume, and as imaging volumes grew with the network's clinical activity, the egress costs of synchronising imaging data to the research cloud grew faster than any forecast had anticipated. The second was legal: the personal health information (PHI) contained within the clinical records was subject to residency requirements in several of the jurisdictions in which HealthChain operated that made its transfer to a research cloud environment legally impermissible without the individual consent of each affected patient --- consent that was neither practical to obtain nor proportionate to the research purposes for which it was sought. The synchronisation programme was suspended after eighteen months, with considerable sunk cost and no production capability to show for it.
 
@@ -83,9 +91,9 @@ The zero-copy architecture addresses this exposure directly. Data that does not 
 
 ## 1.2 Defining the Zero-Copy Foundation
 
-![The Zero-Copy Contrast: Data Stays, Compute Travels](media/image3.png){width="5.541666666666667in" height="0.8906244531933508in"}
+![The Zero-Copy Contrast: Data Stays, Compute Travels](images/01_2_zero_copy_contrast.png)
 
-The Zero-Copy Contrast: Data Stays, Compute Travels
+*Figure 1.4: The zero-copy contrast — in the copy-first model, terabytes of data travel to the consumer; in the zero-copy model, lightweight queries travel to the data and only results return.*
 
 Zero-Copy Integration is an architectural discipline built on four foundational principles. Understanding these principles precisely is important, because Zero-Copy Integration is sometimes mischaracterised --- either as a claim that data never moves under any circumstances, which is neither accurate nor achievable, or as a synonym for data virtualisation, which captures only one dimension of the broader architectural approach.
 
@@ -114,6 +122,10 @@ The Data Plane is the layer at which data assets are made accessible through fed
 The Event Plane is the layer at which changes in the state of data assets are propagated across the enterprise without replicating the underlying datasets. It implements the principle of moving events rather than data: when a customer record changes, an event describing that change is published to the Event Plane, and all systems that need to respond to the change do so by consuming the event, not by receiving a copy of the updated record. The Event Plane is the subject of Chapter 7, which examines the technical architecture of event streaming, the governance mechanisms that make event-driven integration sovereign and resilient, and the specific capabilities of the IBM Event Streams and IBM MQ platforms within this layer.
 
 The Control Plane is the layer at which governance policy is defined and enforced across both the Data and Event Planes. It is the architectural expression of the proposition that integration without governance is not Zero-Copy Integration but merely ungoverned access: technically capable of accessing data in place, but without the policy enforcement mechanisms that give the architecture its compliance defensibility. The Control Plane encompasses the data catalogue, the access policy engine, the lineage tracking capability, and the API management infrastructure through which all access to data and events is mediated, recorded, and audited.
+
+![The Three Integration Planes of Zero-Copy Architecture](images/01_2_three_integration_planes.png)
+
+*Figure 1.5: The three planes of Zero-Copy Integration — the Data Plane for federated access, the Event Plane for change propagation, and the Control Plane for governance — applied across on-premises, cloud, and edge environments.*
 
 ### 1.2.3 The IBM and Open-Source Ecosystem
 
