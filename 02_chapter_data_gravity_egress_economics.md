@@ -13,9 +13,9 @@ The concept of data gravity is the most useful analytical lens for understanding
 
 ## 2.1 Understanding Data Gravity in the Multi-Cloud Era
 
-![Data Gravity Wells and the Sovereign Cost Trap](media/image4.png){width="5.541666666666667in" height="2.473957786526684in"}
+![Data Gravity Wells and the Sovereign Cost Trap](images/02_1_data_gravity_wells.png)
 
-Data Gravity Wells and the Sovereign Cost Trap
+*Figure 2.1: Multiple competing data gravity wells in the multi-cloud enterprise — each environment exerts its own attractive force on workloads, whilst regulatory boundaries (GDPR, DORA, NIS2) create the Sovereign Cost Trap.*
 
 The concept of data gravity was introduced to describe the observation that data, like mass, exerts an attractive force on the applications, services, and processes that depend on it. A large dataset creates a gravitational well that pulls analytical workloads, machine learning pipelines, operational processes, and the engineering teams that build and maintain them towards the location at which the data resides. This attraction is not metaphorical; it is the practical consequence of the fact that moving data is expensive --- in egress cost, in time, in latency, and in the engineering effort required to maintain the fidelity of the copy relative to the source --- whilst moving computation to the data is, in an era of containerised, portable application runtimes, often much less expensive.
 
@@ -49,6 +49,10 @@ The operational component of the integration tax is the cost of the fragility an
 
 The risk component of the integration tax is the most difficult to quantify but potentially the most consequential. Every copy of sensitive data that is created as part of the replication architecture is a location at which that data could be exposed by a security breach, accessed without authorisation, or found to be in violation of data sovereignty requirements. The cost of a data breach is well-documented --- IBM's own Cost of a Data Breach research consistently places the average cost of a significant breach at multiple millions of dollars, with regulated industries such as healthcare and financial services experiencing materially higher costs. The cost of a data sovereignty enforcement action is less predictable but potentially larger: GDPR fines of up to four per cent of global annual turnover, combined with the operational disruption of a regulatory investigation and the reputational consequences of public enforcement action, create a risk exposure that is difficult to fully provision for in operational budgets but that is directly attributable to the replication architecture that created the unnecessary data copies.
 
+![The Three Components of the Hidden Integration Tax](images/02_2_integration_tax_components.png)
+
+*Figure 2.2: The three compounding components of the hidden integration tax — financial, operational, and risk — each substantial in isolation and self-reinforcing in combination.*
+
 The primary contributors to the integration tax accumulation are patterns of data movement that each appear individually justified but that collectively create the conditions for the tax's compounding growth. Nightly batch synchronisations --- the legacy ETL process that moved data between systems in the era before real-time streaming was economically viable --- persist in most large enterprises as a significant component of the integration estate, often unmaintained by their original authors and resistant to modernisation because the business processes they support have become dependencies on their specific timing and format characteristics. Point-to-point SaaS connectors, implemented by individual project teams without regard for the broader integration architecture, create a proliferation of data copies in SaaS-provider environments that are outside the enterprise's direct governance control. And ad-hoc data exports --- the spreadsheet extracts, the analyst-initiated database queries, the one-time ETL jobs that became permanent --- accumulate in the corners of the data estate where governance visibility does not reach.
 
 ## 2.3 Modelling Egress Economics for the Board
@@ -81,6 +85,10 @@ The Zero-Copy transformation that RegDataBank implemented addressed the financia
 
 The financial impact of the transformation was measurable with precision: nightly cross-jurisdictional data transfer volumes fell from ten-to-twenty terabytes to less than fifty gigabytes of aggregated outputs, a reduction of more than 99 per cent. The direct egress cost reduction was proportionate. The regulatory risk was resolved rather than merely mitigated: with risk calculation executing within each jurisdiction on locally-held data, the concentration risk and data localisation concerns that regulators had raised were addressed at an architectural level, not merely managed through contractual or governance arrangements.
 
+![RegDataBank Zero-Copy Transformation](images/02_3_regdatabank_transformation.png)
+
+*Figure 2.3: RegDataBank's transformation — from centralised US risk calculation consuming 10–20 TB nightly from five sovereign jurisdictions, to distributed regional risk engines sharing only 50 GB of aggregated outputs, a 99% reduction in cross-border data transfer.*
+
 ## 2.4 The Sovereign Cost Trap
 
 The Sovereign Cost Trap is a specific manifestation of the data gravity problem that deserves distinct analytical treatment, because it represents a condition in which the enterprise is simultaneously incurring the costs of complying with sovereignty requirements and the costs of a centralised integration architecture that those sovereignty requirements are incompatible with. The result is an enterprise that pays twice: once for the compliance measures required to make centralisation legally defensible, and again for the operational and financial costs of the centralised architecture that sovereignty regulation is progressively rendering unsustainable.
@@ -102,6 +110,10 @@ The third pattern is fragile legal basis: the enterprise's ability to make cross
 ## 2.5 Zero-Copy Patterns to Escape Gravity: An Architectural Framework
 
 The four patterns through which enterprises escape the data gravity well and the Sovereign Cost Trap are not independent techniques to be selected from a menu; they are complementary architectural capabilities that together constitute the Zero-Copy Integration model. In mature implementations, all four are present in the integration estate, applied to different categories of integration requirement based on the characteristics of the data, the access patterns of the consuming workloads, and the governance requirements of the relevant regulatory framework.
+
+![Four Zero-Copy Patterns to Escape Data Gravity](images/02_4_zero_copy_escape_patterns.png)
+
+*Figure 2.4: The four complementary Zero-Copy integration patterns — federated query, compute-to-data, event-driven CDC, and API façades — each addressing a distinct dimension of the data gravity and egress cost problem.*
 
 ### 2.5.1 In-Place Analytics and Federated Query
 
@@ -150,6 +162,10 @@ The projected benefit of Zero-Copy transformation is the reduction in baseline i
 ## 2.7 The CIO Dashboard for Data Sovereignty and Integration Economics
 
 Effective management of an integration estate in transition from copy-first to Zero-Copy requires measurement infrastructure that makes the state of the transition visible to the technology leaders who are responsible for it, and that provides the evidence base for the continuing investment case. The following set of metrics and indicators constitutes the core of a management dashboard for the Zero-Copy transformation programme.
+
+![CIO Dashboard for Data Sovereignty and Integration Economics](images/02_5_cio_dashboard_metrics.png)
+
+*Figure 2.5: The four core metrics of the Zero-Copy management dashboard — egress by domain, copies per critical dataset, cross-border flows, and integration resilience — providing the evidence base for programme governance and continued investment.*
 
 Egress by domain and platform is the foundational financial metric. By analysing cloud billing data at the level of the consuming business domain rather than merely at the level of the cloud account, the dashboard identifies which business units are driving the highest data movement costs and provides the basis for prioritising Zero-Copy treatment of the most expensive flows. This metric should be reported monthly, tracked against a baseline established at the start of the transformation programme, and presented alongside the egress cost trajectory that would apply if no transformation were undertaken, to maintain the visibility of the programme's financial benefit.
 
