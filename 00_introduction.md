@@ -9,10 +9,6 @@ nav_order: 0
 
 ---
 
-![Zero-Copy Integration: Conceptual Overview](images/00_zci_introduction.png)
-
----
-
 ## The Condition We Are In
 
 The enterprise technology estate of the mid-2020s is defined by a contradiction that every senior technology leader will recognise with some discomfort. Organisations have invested more than a decade of capital, engineering effort, and organisational attention in making data more accessible, more analytically rich, and more operationally useful. The dominant architectural method for achieving that ambition has been to replicate data everywhere. Copies flow from systems of record into data warehouses, from warehouses into lakes, from lakes into feature stores, from feature stores into AI training environments, and then outward again into downstream applications, partner ecosystems, and analytical sandboxes. What began as a series of individually reasonable engineering decisions has accumulated into an enterprise condition: integration by proliferation.
@@ -42,6 +38,8 @@ Platform, security, and data governance leaders will find a detailed treatment o
 The book uses IBM's enterprise technology portfolio — IBM watsonx.data, IBM Cloud Pak for Integration, IBM Knowledge Catalog, IBM API Connect, IBM Event Streams, IBM MQ, IBM DataPower, IBM Guardium, IBM Instana, IBM Hyper Protect, and Red Hat OpenShift — as the primary implementation reference, because these platforms together represent one of the most mature and comprehensive available implementations of the Zero-Copy architectural principles in a production enterprise context. It also examines the open-source ecosystem — Apache Kafka, Apache Iceberg, Open Policy Agent, OpenLineage, OpenTelemetry, HashiCorp Terraform, HashiCorp Vault, and the CNCF project landscape — that provides the portability, standards-based independence, and community-driven innovation that the architecture requires to remain viable across the inevitable evolution of the vendor landscape. The underlying principles are transferable across platforms; the goal is to equip the reader to reason clearly about trade-offs so that the architecture remains coherent as providers, products, and regulations evolve.
 
 ## The Structural Framework: Three Planes and a Control Layer
+
+![Zero-Copy Integration: Conceptual Overview](images/00_zci_introduction.png)
 
 A useful way to reason about Zero-Copy Integration before entering the detailed chapters is to understand its structural decomposition into three interacting integration planes, each addressing a distinct class of integration requirement, governed by a common Control Plane that enforces the enterprise's sovereignty, security, and access policies across all three.
 
