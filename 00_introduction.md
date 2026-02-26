@@ -9,6 +9,10 @@ nav_order: 0
 
 ---
 
+![Zero-Copy Integration: Conceptual Overview](images/00_zci_introduction.png)
+
+---
+
 ## The Condition We Are In
 
 The enterprise technology estate of the mid-2020s is defined by a contradiction that every senior technology leader will recognise with some discomfort. Organisations have invested more than a decade of capital, engineering effort, and organisational attention in making data more accessible, more analytically rich, and more operationally useful. The dominant architectural method for achieving that ambition has been to replicate data everywhere. Copies flow from systems of record into data warehouses, from warehouses into lakes, from lakes into feature stores, from feature stores into AI training environments, and then outward again into downstream applications, partner ecosystems, and analytical sandboxes. What began as a series of individually reasonable engineering decisions has accumulated into an enterprise condition: integration by proliferation.
