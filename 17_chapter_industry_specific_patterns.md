@@ -39,6 +39,10 @@ The resilience dimension of the BCBS 239 pattern is critical: the firm must be a
 
 PCI-DSS compliance requires that cardholder data be processed within a technically isolated environment — the cardholder data environment — and that all data flows into and out of this environment be explicitly authorised, encrypted, and monitored. The Zero-Copy architecture implements this requirement through the API façade pattern (Blueprint C of Chapter 16) applied to the cardholder data environment: consuming systems access payment data through governed API interfaces that enforce the field-level access controls and encryption requirements of PCI-DSS, without direct access to the cardholder data environment's underlying systems. IBM DataPower Gateway provides the TLS termination, message-level encryption, and access token validation that form the security boundary of the API façade at the cardholder data environment perimeter. IBM API Connect manages the API contracts and consumer authorisations for payment data access, maintaining the audit trail that PCI-DSS audit requirements demand.
 
+![Financial services Zero-Copy sovereignty architecture covering anti-egress, BCBS 239 risk data aggregation, and PCI-DSS payment isolation patterns](images/17_1_financial_services_patterns.png)
+
+*Figure 17.1: Financial Services Sector Patterns — Anti-Egress Architecture (IBM Cloud Pak for Integration with jurisdiction-aware routing and MiFID II/GDPR/PCI-DSS/BCBS 239 taxonomy in IBM Knowledge Catalog), Risk Data Aggregation Pattern (IBM watsonx.data federated SQL across risk systems for BCBS 239 without centralisation), and Payment Data Isolation Pattern (IBM DataPower Gateway API façade over the PCI-DSS cardholder data environment), all governed under DORA operational resilience requirements.*
+
 ## 17.2 Healthcare: Zero-Copy Integration for Patient Data and Clinical Systems
 
 ### The Regulatory Context
@@ -62,6 +66,10 @@ IBM Cloud Pak for Integration provides the governance layer through which FHIR A
 For healthcare analytics — population health management, clinical quality improvement, pharmaceutical outcomes research — the Zero-Copy approach implements federated analytics (Blueprint D) over clinical data that must remain within the jurisdiction and institutional boundary of the health system that generated it. IBM watsonx.data provides the federated SQL capability through which analytical queries are dispatched to regional EHR and clinical data repository instances, with query pushdown minimising the volume of patient data that traverses the network. The open-source FHIR-native analytics ecosystem — including FHIR Shorthand for dataset specification and HAPI FHIR for open-source FHIR server implementation — provides the clinical data access layer on which IBM watsonx.data's federation connectors operate.
 
 For pharmaceutical research scenarios where federated model training across multiple health systems is required — for example, training a diagnostic model on patient cohort data from multiple hospitals without sharing individual patient records — the federated learning pattern described in Blueprint D applies directly. IBM watsonx.ai's distributed training coordination, combined with the privacy-preserving parameter aggregation techniques available through the open-source TensorFlow Federated framework, enables model training across multi-site clinical cohorts whilst maintaining the HIPAA data use agreement boundaries that prohibit sharing of individual-level patient data between institutions.
+
+![Healthcare Zero-Copy clinical interoperability pattern with FHIR API governance and federated clinical analytics without patient data centralisation](images/17_2_healthcare_clinical_patterns.png)
+
+*Figure 17.2: Healthcare Sector Patterns — Clinical Interoperability Pattern (IBM App Connect Enterprise with HL7 FHIR R4, HL7 v2, DICOM, and CDA connectors governed by IBM API Connect with minimum-necessary field-level enforcement and IBM Guardium HIPAA monitoring) and Clinical Analytics Pattern (IBM watsonx.data federated SQL across regional EHR instances, IBM watsonx.ai federated learning with TensorFlow Federated for multi-site research within HIPAA data use agreement boundaries), aligned with GDPR Article 9 and the European Health Data Space federated access model.*
 
 ## 17.3 Public Sector: Sovereign Operations and Security Domain Patterns
 
@@ -87,6 +95,10 @@ IBM DataPower Gateway's deep packet inspection and content filtering capabilitie
 
 For systems that must be physically isolated from external networks — classified defence systems, critical national infrastructure control networks, intelligence collection platforms — the Zero-Copy architecture operates entirely within the air-gapped boundary for internal data access, with the integration fabric's full capabilities — query federation, event streaming, API governance — deployed on infrastructure that has no external network connectivity. The challenge is data exchange at the air-gap boundary itself, which necessarily involves some form of controlled data transfer. The Zero-Copy principle is honoured within the boundary; data transfers across the boundary are treated as governed exceptions that require explicit authorisation and logging, with the transferred data immediately classified upon receipt in the destination environment and subjected to the destination environment's access controls through IBM Knowledge Catalog.
 
+![Public sector sovereign integration patterns showing government cloud, cross-domain solution, and air-gap integration architectures](images/17_3_public_sector_patterns.png)
+
+*Figure 17.3: Public Sector Patterns — Sovereign Cloud Pattern (IBM Cloud for Government FedRAMP boundary, IBM Hyper Protect Crypto Services HSM key management, IBM Security Verify PKI/smart-card authentication), Cross-Domain Solution Pattern (IBM DataPower Gateway content inspection and sanitisation across security classification boundaries with human release authorisation and OPA automated policy enforcement), and Air-Gap Integration Pattern (full Zero-Copy fabric within the isolated boundary, controlled transfer exceptions with immediate IBM Knowledge Catalog classification on receipt).*
+
 ## 17.4 Manufacturing: Edge Resilience and Plant Autonomy Patterns
 
 ### The Operational Context
@@ -109,6 +121,10 @@ The integration of OT protocols into the enterprise event fabric is implemented 
 
 IBM Guardium's monitoring capability extends to OT database systems in the manufacturing context, providing the tamper-evident audit record for access to production recipe data, quality specification databases, and equipment configuration stores that are subject to intellectual property protection obligations and, in regulated manufacturing sectors such as pharmaceuticals and aerospace, to GxP and AS9100 quality management audit requirements.
 
+![Manufacturing edge resilience and IT/OT integration architecture showing local plant autonomy and unified IT/OT federated analytics](images/17_4_manufacturing_edge_iot.png)
+
+*Figure 17.4: Manufacturing Sector Patterns — Local Autonomy Pattern (Red Hat OpenShift MicroShift on plant edge hardware, IBM MQ store-and-forward buffering, IBM Event Streams local cluster, IBM Edge Application Manager central management, connected/disconnected operation modes) and IT/OT Integration Pattern (Eclipse Mosquitto MQTT bridge, IBM App Connect OT connectors translating OPC-UA/MQTT/Modbus to Apache Avro schemas, IBM watsonx.data unified federated query across OT and IT systems for digital twin analytics, IBM Guardium GxP/AS9100 audit on production databases).*
+
 ## 17.5 Retail: Real-Time Personalisation Without Cross-Border Exposure
 
 ### The Operational and Regulatory Context
@@ -128,6 +144,10 @@ IBM Event Streams provides the event streaming infrastructure for the retail int
 A specific sovereignty challenge in retail integration that the general personalisation pattern does not fully address is the management of customer consent and data processing preferences under GDPR and equivalent regulations. A customer who has withdrawn consent for personalisation in one channel — for example, by updating their privacy preferences in a mobile app — must have that preference honoured immediately across all channels, including the event-driven personalisation engine, the email marketing platform, and the in-store digital interaction systems. This requires that consent state changes be propagated to all systems that process personal data for personalisation purposes as an event, with governance controls that prevent any system from processing personal data for a purpose to which the customer has not consented.
 
 IBM Event Streams provides the event channel through which consent state changes are propagated to all consuming systems as high-priority events. IBM Knowledge Catalog maintains the consent classification metadata for each data processing purpose — personalisation, analytics, marketing, third-party sharing — and the OPA policies that enforce consent requirements at the point of data access, refusing queries for personal data in the context of a processing purpose for which the accessing consumer's target customer has not given consent. This consent enforcement at the data access governance layer, rather than implemented separately in each consuming application, provides the systematic assurance that GDPR consent requirements are honoured across the full digital retail estate without requiring every consuming application to implement its own consent evaluation logic.
+
+![Retail real-time personalisation and GDPR consent management architecture with per-region IBM Event Streams topics and federated customer profile queries](images/17_5_retail_personalisation_consent.png)
+
+*Figure 17.5: Retail Sector Patterns — Real-Time Personalisation Pattern (IBM Event Streams per-region customer interaction topics, IBM App Connect stream processing, IBM watsonx.data federated at-event-time profile queries against CRM/loyalty systems, IBM watsonx.ai regional ML model serving, regional partitioning preventing cross-border customer data flows) and Consent and Preference Management Pattern (high-priority consent event propagation to all consuming systems, IBM Knowledge Catalog consent classification by processing purpose, OPA enforcement at data access layer within GDPR prompt-withdrawal latency requirements).*
 
 ## 17.6 Summary and Sector Imperatives
 
