@@ -35,9 +35,9 @@ It is important to be clear about what the Event Plane does not do. It does not 
 
 The terms event sourcing and event streaming are frequently used interchangeably in technical discourse, but they describe architecturally distinct patterns with different implications for the Zero-Copy enterprise. Understanding the difference between them, and recognising when each is appropriate, is essential to designing an Event Plane that delivers the benefits of Zero-Copy Integration without introducing new forms of complexity.
 
-![The Zero-Copy Event Plane: CDC, Streaming, and Replay](media/image12.png){width="6.508156167979003in" height="2.479628171478565in"}
+![The Zero-Copy Event Plane: CDC, Streaming, and Replay](images/07_1_zero_copy_event_plane.png)
 
-The Zero-Copy Event Plane: CDC, Streaming, and Replay
+*Figure 7.1: The Zero-Copy Event Plane showing CDC capture from systems of record, event streaming through IBM Event Streams, and durable replay capability—enabling consuming systems to maintain operational awareness without accumulating data replicas.*
 
 Event streaming is the broader and more immediately practical of the two concepts. It describes the continuous publication of events — records of state changes, business occurrences, or operational measurements — from one or more originating systems to a persistent, ordered, high-throughput event log from which multiple consuming systems can read independently. The event log is the central artefact of event streaming: a durable, append-only record of everything that has happened within a defined domain of enterprise activity. Apache Kafka, the open-source distributed event streaming platform, has established itself as the dominant implementation of this pattern at enterprise scale, offering a log that can retain events for configurable retention periods, can be consumed by multiple consumers at different positions in the log simultaneously, and can process millions of events per second with latency measured in single-digit milliseconds.
 
@@ -107,6 +107,10 @@ In the context of a sovereign, multi-cloud enterprise that extends to edge deplo
 
 NATS JetStream, the persistent messaging layer introduced in NATS version 2, extends the core NATS capability with message persistence, consumer acknowledgements, and replay semantics that bring it closer to the durability guarantees of Kafka for use cases where lightweight persistence is sufficient. For edge deployments that require local event durability during network outages — a retail point-of-sale system that must record transactions during periods of connectivity loss and replay them when connectivity is restored — NATS JetStream provides an appropriate balance between the operational simplicity of NATS and the durability requirements of a business-critical edge application.
 
+![IBM MQ, Kafka, and NATS Complementary Roles in the Enterprise Event Layer](images/07_2_mq_kafka_nats_roles.png)
+
+*Figure 7.2: IBM MQ, IBM Event Streams (Kafka), and NATS occupying distinct and complementary roles in the enterprise Event Plane—transactional messaging, high-throughput streaming, and lightweight edge messaging respectively—with IBM App Connect Enterprise mediating between platforms.*
+
 ## 7.6 Event Schema Governance: The Discipline That Determines Whether Event-Driven Succeeds
 
 The discussion of event streaming technology in the preceding sections addresses the infrastructure layer of the Event Plane. There is, however, a dimension of event-driven architecture that receives significantly less attention in both vendor literature and practitioner discourse than the streaming infrastructure, and yet determines more than any other factor whether an event-driven integration estate remains governable over time. That dimension is event schema governance.
@@ -132,6 +136,10 @@ IBM Event Streams provides the Kafka-based event streaming infrastructure: the b
 The combination of these three capabilities within a single, co-deployed platform provides a complete Event Plane implementation that addresses the operational, governance, and processing dimensions of enterprise event architecture in an integrated manner. An event flow in the IBM Event Automation platform can be described as follows: events are produced to IBM Event Streams topics by originating systems; Event Processing applies the filtering, enrichment, and correlation logic that transforms raw events into business-meaningful signals; Event Endpoint Management governs access to both the raw event topics and the processed event topics, enforcing schema compatibility and access policies; and the governed event streams are consumed by the applications, AI agents, and analytical systems that the enterprise's operational and governance requirements designate as authorised consumers.
 
 This end-to-end capability within a single platform simplifies the operational complexity of the Event Plane considerably. The alternative — assembling the equivalent capability from separate open-source components, each with its own deployment model, its own operational tooling, and its own governance gaps — is a viable approach for enterprises with the engineering capacity to manage that complexity, but it introduces integration challenges and operational inconsistencies that the IBM Event Automation platform avoids by design. The availability of the platform on Red Hat OpenShift provides the same geographic flexibility that characterises the rest of the IBM integration portfolio: an IBM Event Automation deployment can be placed within any sovereign zone, operated by the customer-designated in-boundary operator, and integrated with the enterprise's wider Sovereign Core governance infrastructure.
+
+![IBM Event Automation Unified Platform Architecture](images/07_3_event_automation_platform.png)
+
+*Figure 7.3: IBM Event Automation as a unified platform on Red Hat OpenShift, integrating IBM Event Streams (Kafka infrastructure), IBM Event Endpoint Management (governance and discovery portal), and IBM Event Processing (no-code stream transformation) into a cohesive, sovereignty-compatible Event Plane.*
 
 ## 7.8 Implementation Patterns
 
@@ -163,6 +171,10 @@ IBM's Event Endpoint Management capability provides the governance infrastructur
 
 The practical deployment of the cross-cloud event mesh in an enterprise context typically involves three tiers of Kafka infrastructure: local cluster instances operating within each sovereign zone for high-throughput, low-latency event processing within the zone; regional aggregation clusters that consolidate event streams across multiple zones within a single regulatory jurisdiction; and a central event backbone that connects regions for the specific event topics whose content and regulatory status permit cross-regional distribution. This three-tier topology balances the performance requirements of local event processing with the governance requirements of cross-boundary event propagation, ensuring that events flow freely within jurisdictions and are controlled precisely as they cross jurisdictional boundaries.
 
+![Cross-Cloud Event Mesh Three-Tier Topology](images/07_4_cross_cloud_event_mesh.png)
+
+*Figure 7.4: Cross-cloud event mesh topology with three tiers—local Kafka clusters within sovereign zones, regional aggregation clusters within regulatory jurisdictions, and a governed central event backbone—ensuring events flow freely within boundaries and are filtered and controlled at every cross-jurisdictional crossing point.*
+
 ### 7.8.3 The Outbox Pattern with Debezium CDC: Eliminating Replication Sprawl at Source
 
 The most persistent source of data replication in the enterprise is the operational database of the system of record. Despite the best intentions of event-driven architecture advocates, the reality of most enterprise environments is that critical systems of record — core banking platforms, ERP systems, policy administration systems — are not event-native applications. They were designed to store and manage state, not to publish events, and integrating them with an event-driven architecture requires bridging the gap between their state-storage model and the event publication model of the Event Plane.
@@ -174,6 +186,10 @@ The Outbox pattern, combined with Debezium CDC, provides an architecturally soun
 Debezium, the open-source CDC tool, monitors the transaction log of the application's database and captures the inserts to the outbox table as they are committed. For each outbox record captured, Debezium publishes a corresponding event to the Kafka topic designated for that event type. This publication occurs within seconds of the original transaction's commit, providing the near-real-time event propagation that modern integration requires whilst maintaining the transactional consistency guarantee that the Outbox pattern provides.
 
 The architectural elegance of the Outbox-Debezium pattern is that it achieves event-driven integration from systems of record without creating any intermediate data copies. The only data movement is the event payload published to Kafka, and that payload contains precisely the information that the enterprise's governance framework has determined is appropriate to communicate externally about the state change in question. The full state of the affected entity remains in its authoritative location; the Kafka topic carries the change notification, not the entity. Consuming systems that require access to the full entity state do so through the Data Plane's governed query mechanisms, not through access to a replica.
+
+![Outbox Pattern with Debezium CDC: Eliminating Replication Sprawl](images/07_5_outbox_debezium_cdc.png)
+
+*Figure 7.5: The Outbox-Debezium CDC pattern achieving event-driven integration from systems of record without intermediate data copies—an atomic outbox write captures each state change, Debezium reads the transaction log and publishes to IBM Event Streams, and consuming systems maintain local state stores from event streams rather than database replicas.*
 
 In practice, the Outbox pattern requires the application's development team to implement the outbox table and the transaction-scoped outbox writes. In environments where access to the application's source code is available and the application is under active development, this is a straightforward modification. In environments where the system of record is a packaged application — an ERP system, a core banking platform — access to the source code is unavailable, and the Outbox pattern as described is not directly applicable. In these environments, Debezium can be configured to monitor the application's own tables directly, publishing events corresponding to changes to designated tables without requiring any modification to the application. This approach is less precise than the Outbox pattern because the events are derived from the application's internal data model rather than from an intentionally designed event schema, but it provides a pragmatic path to CDC-based event integration from packaged systems of record.
 
