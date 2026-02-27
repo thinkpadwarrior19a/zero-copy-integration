@@ -1,0 +1,33 @@
+\usepackage{imakeidx}
+\makeindex[title=Index,intoc]
+
+% Sans-serif font (Helvetica-compatible, bundled with LaTeX/MiKTeX)
+\usepackage[scaled=0.92]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Scale images to fit within the text width, preserving aspect ratio
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>0.85\textheight 0.85\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Nicely formatted figure captions
+\usepackage[font=small,labelfont=bf,margin=1cm]{caption}
+
+% Better typography
+\usepackage{microtype}
+
+% Start each top-level section (chapter) on a new page
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+% Footer showing current chapter name
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\small\itshape\leftmark}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
