@@ -8,6 +8,7 @@ $base = 'zero_copy_book'
 
 # Ordered list of source files — Executive Briefing excluded
 $files = @(
+  'copyright.md',
   '00_introduction.md',
   '01_chapter_zero_copy_necessity.md',
   '02_chapter_data_gravity_egress_economics.md',

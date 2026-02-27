@@ -6,6 +6,7 @@ $out = 'Zero-Copy Integration Book.epub'
 
 # Ordered list of source files — Executive Briefing excluded
 $files = @(
+  'copyright.md',
   '00_introduction.md',
   '01_chapter_zero_copy_necessity.md',
   '02_chapter_data_gravity_egress_economics.md',
@@ -37,7 +38,7 @@ $pandocArgs = $files + @(
   '--toc',
   '--toc-depth=2',
   '--split-level=1',
-  '--epub-cover-image=images/00_zci_introduction.png',
+  '--epub-cover-image=images/Zero-Copy-Integration-Cover-Image.png',
   '--css=epub.css',
   '--lua-filter=strip_relative_links.lua',
   '--resource-path=.',
