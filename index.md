@@ -54,11 +54,6 @@ A practical guide to building modern enterprise architectures that eliminate unn
 
 - [Chapter 20: The Fully Sovereign, Fully Resilient Enterprise](20_chapter_fully_sovereign_enterprise)
 
-### Reference
-
-- [IBM Technologies Reference](ibm_technologies)
-- [Open Source Technologies Reference](open_source_technologies)
-
 ---
 
 *A structured exploration of how enterprises can federate access to data in place, replace replication with event-driven propagation, and build integration fabrics that respect regulatory boundaries without sacrificing analytical capability.*
