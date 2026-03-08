@@ -32,6 +32,8 @@ echo "[1/3] Building DOCX..."
 pandoc \
   "${CHAPTERS[@]}" \
   --metadata-file="${REPO_ROOT}/config/metadata-docx.yaml" \
+  --metadata title="Zero-Copy Integration" \
+  --metadata subtitle="Architecture for the Fragmented Enterprise" \
   --lua-filter="${REPO_ROOT}/config/docx-enhancements.lua" \
   --from=markdown+autolink_bare_uris \
   --to=docx \
@@ -48,6 +50,8 @@ echo "[2/3] Building ePub..."
 pandoc \
   "${CHAPTERS[@]}" \
   --metadata-file="${REPO_ROOT}/config/metadata-epub.yaml" \
+  --metadata title="Zero-Copy Integration" \
+  --metadata subtitle="Architecture for the Fragmented Enterprise" \
   --lua-filter="${REPO_ROOT}/config/epub-enhancements.lua" \
   --css="${REPO_ROOT}/config/epub-style.css" \
   --from=markdown+autolink_bare_uris \
@@ -66,6 +70,8 @@ echo "[3/3] Building PDF (this may take a few minutes)..."
 pandoc \
   "${CHAPTERS[@]}" \
   --metadata-file="${REPO_ROOT}/config/metadata-pdf.yaml" \
+  --metadata title="Zero-Copy Integration" \
+  --metadata subtitle="Architecture for the Fragmented Enterprise" \
   --lua-filter="${REPO_ROOT}/config/index-filter.lua" \
   --include-in-header="${REPO_ROOT}/config/pdf-preamble.tex" \
   --from=markdown+autolink_bare_uris \
