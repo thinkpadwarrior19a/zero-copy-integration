@@ -12,9 +12,6 @@ The architectural principles, blueprints, and sector patterns presented in the p
 The cases presented here are composites, drawn from experience across multiple client engagements, to preserve confidentiality whilst retaining the operational authenticity that makes case study analysis practically useful. They are not success narratives constructed to validate the framework; they are honest accounts of transformation programmes that achieved significant outcomes whilst also confronting genuine difficulties, and from which the lessons most valuable to other enterprises are as often the failures and course corrections as the successes. Three anti-patterns, observed with sufficient frequency across enterprise transformation programmes to warrant systematic treatment, follow the case studies and precede the practical disciplines through which the most common failure modes can be avoided.
 
 ![Overview of three Zero-Copy case studies with key challenges, architectures, and transformation lessons](images/18_1_case_studies_overview.png)
-
-*Figure 18.1: Case Studies Overview — three Zero-Copy transformation programmes (European Financial Institution: seven-jurisdiction sovereign data fabric; UK Healthcare Provider: FHIR-based PHI replication elimination; Global Manufacturer: 43-site edge IT/OT integration) with their key challenges and primary transformation lessons, followed by three recurring anti-patterns.*
-
 ## 18.1 Case Study One: A European Financial Institution's Sovereign Data Fabric
 
 ### Background and Impetus
@@ -46,9 +43,6 @@ The outcomes were demonstrably positive on the dimensions that motivated the pro
 The programme's most important lesson was the primacy of governance over technology in determining whether a Zero-Copy architecture succeeds. The watsonx.data federation capability was available from the outset; the eighteen months of programme duration were consumed almost entirely by the organisational and governance work — domain boundary definition, Data Steward assignment, access control policy design, national team engagement — that made the technical capability operational within a governance framework that all stakeholders trusted. Enterprises that underestimate this organisational investment and attempt to compress it in favour of accelerated technical delivery consistently produce Zero-Copy architectures that are technically functional but organisationally unsustained.
 
 ![European bank seven-jurisdiction sovereign data fabric architecture with IBM watsonx.data regional clusters and central Knowledge Catalog metadata hub](images/18_2_european_bank_sovereign_fabric.png)
-
-*Figure 18.2: Case Study One — European Financial Institution Sovereign Data Fabric: seven IBM watsonx.data Presto clusters on Red Hat OpenShift deployed within national jurisdictions, connected to a Frankfurt central analytical hub containing only IBM Knowledge Catalog governance metadata (no customer data), with federated group risk queries using predicate pushdown at each national cluster, federated model training via IBM watsonx.ai returning only parameters, and IBM Cloud Satellite providing consistent operational management across all seven national deployments.*
-
 ## 18.2 Case Study Two: A Healthcare Provider's FHIR-Based Integration Without PHI Replication
 
 ### Background and Impetus
@@ -78,9 +72,6 @@ The programme reduced the number of PHI replication points in the integration es
 The programme's most important lesson was the necessity of engaging clinical stakeholders as partners in the architecture design rather than as recipients of a technical specification. The device-level data copy problem — which could only be addressed by making the governed access alternative attractive enough that clinical teams chose it over the workaround — required the clinical informatics team, the clinical nursing informatics leads, and the clinical system vendors to be active participants in the API gateway caching design. A technically correct caching configuration that was not validated against actual clinical workflows would have produced a cache that either failed the clinical accuracy requirements of time-critical decisions or failed the performance requirements that had driven the workarounds. The involvement of clinical stakeholders in the design produced a configuration that satisfied both requirements and that the clinical teams trusted because they had participated in its creation.
 
 ![UK healthcare provider FHIR-based Zero-Copy integration reducing PHI replication from 43 to 7 points with IBM API Connect caching and IBM Guardium monitoring](images/18_3_healthcare_fhir_architecture.png)
-
-*Figure 18.3: Case Study Two — Healthcare Provider FHIR-Based Integration: IBM API Connect with role-differentiated response caching (eliminating device-level PHI copies) and IBM App Connect Enterprise FHIR R4/HL7 v2/DICOM connectors providing the API façade over 14 clinical systems, IBM Knowledge Catalog lineage with pseudonymised patient identifiers, IBM Guardium independent database monitoring detecting bypass attempts, reducing PHI replication points from 43 to 7 with DPIA-documented clinical necessity for the remaining seven.*
-
 ## 18.3 Case Study Three: A Global Manufacturer's Edge Integration and IT/OT Convergence
 
 ### Background and Impetus
@@ -110,9 +101,6 @@ The programme delivered the real-time production visibility required by the comp
 The programme's most important lesson for enterprises considering edge integration programmes was the necessity of designing for disconnected operation in quantitative terms rather than as an architectural principle. The reconnection event burst problem — invisible in architectural design because it only manifests at the scale of actual production volumes — was identified through load testing of the reconnection scenario before production deployment, and resolved through a configuration change that added three weeks to the programme timeline. An enterprise that defers this testing to production operation will encounter the same problem but without the ability to resolve it in a controlled environment; the consequence in a manufacturing context could be a multi-hour delay in quality event processing that allows significant non-conforming production to accumulate before the alert is processed.
 
 ![Global manufacturer 43-site edge integration with IBM MQ store-and-forward, OT protocol bridging, and IBM Cloud Satellite central governance](images/18_4_manufacturing_edge_architecture.png)
-
-*Figure 18.4: Case Study Three — Global Manufacturer Edge IT/OT Integration: Eclipse Mosquitto MQTT broker in OT network collecting OPC-UA sensor data, IBM MQ bridge to IBM Event Streams local cluster, IBM App Connect Enterprise quality correlation rules generating alerts (mean detection time reduced from 4.3 hours to 4.2 minutes), IBM MQ durable buffering for disconnected operation with parallel consumer group tuning reducing 12-hour reconnection replay from 4 hours to 40 minutes, IBM Cloud Satellite deploying consistent governance policies across all 43 OpenShift clusters.*
-
 ## 18.4 Anti-Pattern Analysis
 
 ### Anti-Pattern One: Replication Debt Accumulation
@@ -138,9 +126,6 @@ A third anti-pattern — particularly acute in enterprises that have invested he
 The specific manifestation of this anti-pattern in IBM Cloud Pak for Integration deployments is the integration catalogue that is populated with APIs and event topics but not with the governance metadata — data classification, access policies, lineage configuration — that makes the catalogue a governance instrument rather than a discovery tool. An API published to the catalogue without a data classification annotation can be discovered by any consuming team but provides no governance assurance about the data it exposes; the catalogue's completeness metric looks healthy whilst its governance quality metric is zero. The remedy is not to slow down the technology deployment but to make the governance metadata quality a deployment gate: no integration flow is registered in the catalogue without a complete governance record, enforced by the Centre of Excellence's review process and by the OPA admission policy that prevents unclassified integration flows from being deployed to the production fabric.
 
 ![Three Zero-Copy anti-patterns with causes, consequences, and remedies: replication debt, governance theatre, and technology-ahead-of-organisation](images/18_5_anti_patterns_analysis.png)
-
-*Figure 18.5: Zero-Copy Anti-Pattern Analysis — three recurring failure modes: Replication Debt Accumulation (expedient project integrations bypassing the governed fabric, remedied by architectural decision records and FinOps anomaly detection), Governance Framework as Compliance Theatre (catalogue populated at launch then unmaintained, remedied by governance health metrics connected to accountability structures), and Technology-Ahead-of-Organisation Deployment (IBM Cloud Pak for Integration deployed before domain ownership model, remedied by governance metadata completeness as a deployment gate).*
-
 ## 18.5 Practical Disciplines for Sustainable Zero-Copy Programmes
 
 The case studies and anti-pattern analysis in this chapter converge on a set of practical disciplines that consistently distinguish Zero-Copy Integration programmes that achieve sustainable outcomes from those that achieve technically correct but organisationally unsustained implementations.

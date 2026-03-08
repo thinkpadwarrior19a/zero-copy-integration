@@ -14,9 +14,6 @@ Each blueprint presented in this chapter addresses a distinct deployment scenari
 Six blueprints are presented. Blueprint A addresses the regionally sovereign data fabric for enterprises operating analytical workloads across jurisdictional boundaries. Blueprint B addresses the multi-cloud sovereign event mesh for event-driven integration across cloud provider boundaries. Blueprint C addresses the API façade over the legacy data estate for enterprises whose regulated data assets are concentrated in systems that cannot be modernised. Blueprint D addresses federated analytics with distributed compute for data science workloads that cannot centralise their training data. Blueprint E addresses Zero-Copy Integration for SaaS-heavy enterprises where data governance must extend to provider-operated systems. Blueprint F, newly introduced in this edition, addresses the sovereign BC/DR topology that provides operational continuity without creating the jurisdictional violations that nave recovery architectures produce.
 
 ![Overview map of all six Zero-Copy Integration architectural blueprints with their deployment scenarios and key components](images/16_1_blueprints_overview.png)
-
-*Figure 16.1: Zero-Copy Integration Architectural Blueprints — overview of six reference patterns (A: Regionally Sovereign Data Fabric, B: Multi-Cloud Sovereign Event Mesh, C: API Façade over Legacy Estate, D: Federated Analytics with Distributed Compute, E: Zero-Copy for SaaS-Heavy Enterprises, F: Sovereign BC/DR Topology), each addressing a distinct deployment scenario with a common governance layer of OPA policy enforcement, IBM Instana observability, and IBM Guardium audit.*
-
 ## 16.1 Blueprint A: The Regionally Sovereign Data Fabric
 
 ### Problem Context
@@ -44,9 +41,6 @@ The primary failure mode of this blueprint is the unavailability of a regional P
 The blueprint is operating correctly when the following indicators are observable through IBM Instana and IBM Knowledge Catalog: all analytical queries are accompanied by lineage records attributing each sub-query to the regional cluster that executed it; no cross-boundary data flows are recorded in the network traffic analysis of any regional cluster; all query requests are accompanied by governance evaluation records confirming that the requesting identity and data classification combination was authorised before execution commenced; and the metadata held by the central metastore contains only schema and classification metadata, with no row-level data.
 
 ![Blueprint A Regionally Sovereign Data Fabric architecture showing central governance layer routing queries to jurisdiction-specific regional Presto clusters](images/16_2_blueprint_a_sovereign_data_fabric.png)
-
-*Figure 16.2: Blueprint A — Regionally Sovereign Data Fabric: a jurisdiction-neutral central coordination layer (IBM Knowledge Catalog, OPA query authorisation, OpenLineage) routing analytical queries to jurisdiction-specific IBM watsonx.data Presto clusters on Red Hat OpenShift, each accessing only local Apache Iceberg data sources, with cross-boundary raw data flows architecturally eliminated and IBM Cloud Satellite providing central operational management across all regional clusters.*
-
 ## 16.2 Blueprint B: The Multi-Cloud Sovereign Event Mesh
 
 ### Problem Context
@@ -72,9 +66,6 @@ The primary failure modes of this blueprint are the unavailability of a provider
 The blueprint is operating correctly when: no event classified above a specified sensitivity threshold appears in the event stream of a provider whose jurisdiction does not authorise processing of that classification; consumer group lag across all participating providers is within the agreed SLA bounds; MirrorMaker 2 replication lag between providers is below the agreed RPO threshold; and the event schema registry in IBM Knowledge Catalog contains classification annotations for every registered event type, with no unclassified event schemas in production.
 
 ![Blueprint B Multi-Cloud Sovereign Event Mesh with per-provider IBM Event Streams clusters and classification-filtered MirrorMaker 2 cross-provider replication](images/16_3_blueprint_b_event_mesh.png)
-
-*Figure 16.3: Blueprint B — Multi-Cloud Sovereign Event Mesh: per-provider IBM Event Streams Kafka clusters governed through IBM API Connect credential management and IBM Knowledge Catalog schema registry, with MirrorMaker 2 cross-provider mirroring applying data classification filtering to block regulated events from crossing jurisdictional boundaries, IBM MQ providing durable guaranteed-delivery for inter-provider transfers, and IBM Instana monitoring consumer group lag and replication health across all providers.*
-
 ## 16.3 Blueprint C: API Façade over the Legacy Data Estate
 
 ### Problem Context
@@ -102,9 +93,6 @@ The primary failure mode of this blueprint is the unavailability of the legacy s
 The blueprint is operating correctly when: all data access to governed legacy systems passes through the API façade as evidenced by zero direct database connections from consuming application networks in the network policy enforcement logs; field-level masking is applied consistently to all responses containing personal data for consumers not authorised to receive unmasked personal data, as verified through synthetic test requests; API response latency is within the SLA bounds agreed between the integration platform team and consuming domain teams; and the lineage record in IBM Knowledge Catalog contains an entry for every API invocation that accessed personal data, with the consuming application identity, the data classification of the accessed fields, and the governance policy that authorised the access.
 
 ![Blueprint C API Facade over Legacy Data Estate showing governed API layer interposing between consuming applications and mainframe ERP database legacy systems](images/16_4_blueprint_c_api_facade.png)
-
-*Figure 16.4: Blueprint C — API Façade over the Legacy Data Estate: IBM API Connect (lifecycle management, consumer registration), IBM DataPower Gateway (TLS, OAuth, OPA real-time policy), and IBM App Connect Enterprise (legacy connectors, field-level masking) interposed as a stateless governed façade over IBM Z mainframe, SAP/Oracle ERP, and IBM Db2 systems, with IBM Knowledge Catalog field classifications driving access control decisions and every API invocation captured as a lineage record.*
-
 ## 16.4 Blueprint D: Federated Analytics with Distributed Compute
 
 ### Problem Context
@@ -182,9 +170,6 @@ The DR topology blueprint must address the failure mode in which the DR mechanis
 The blueprint is operating correctly when: MirrorMaker 2 replication lag for all critical event topics is below the RPO threshold at all times, as monitored by IBM Instana; the DR zone's API Connect configuration matches the primary zone's configuration to within a defined drift tolerance, as validated by the GitOps deployment pipeline's reconciliation; the most recent full DR failover test was completed within the declared RTO, with evidence recorded in the Ansible automation controller's execution log; and no DR failover procedure — test or real — has involved data crossing a jurisdictional boundary outside the approved sovereignty topology, as confirmed by IBM Guardium's cross-boundary access monitoring.
 
 ![Blueprint F Sovereign BC/DR Topology with primary and DR twin zones under identical governance configuration and Ansible-automated failover](images/16_5_blueprint_f_bcdr_topology.png)
-
-*Figure 16.5: Blueprint F — Sovereign BC/DR Topology: primary sovereign zone and DR twin (same jurisdiction, separate failure domain) deployed from identical HashiCorp Terraform modules, governed synchronously by IBM Cloud Satellite and GitOps with identical OPA and Kyverno policies, IBM Event Streams MirrorMaker 2 continuous replication meeting the RPO, and IBM Ansible Automation Platform runbooks orchestrating the complete failover sequence within the RTO without crossing jurisdictional boundaries.*
-
 ## 16.7 Summary and Architectural Imperatives
 
 The six blueprints presented in this chapter translate the Zero-Copy Integration architecture's principles into deployable reference patterns for the deployment scenarios most frequently encountered in regulated, multi-cloud enterprises. Together they cover the major dimensions of the Zero-Copy integration challenge: analytical access to sovereign data across jurisdictions, event-driven integration across cloud boundaries, access modernisation for legacy data estates, distributed AI model development, SaaS governance, and operational resilience within sovereignty constraints. The argument of the chapter may be summarised in five claims.
